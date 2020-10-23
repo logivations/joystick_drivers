@@ -48,7 +48,7 @@ def generate_launch_description():
                                        name='joy',
                                        namespace='agv'+ str(AGV_ID),
                                        package='joy',
-                                       node_executable='joy_node',
+                                       executable='joy_node',
                                        output='both',
                                        parameters=[params])
 
