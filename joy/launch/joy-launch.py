@@ -32,6 +32,11 @@ import os
 import ament_index_python.packages
 import launch
 import launch_ros.actions
+from configparser import ConfigParser
+
+config = ConfigParser()
+config.read("/data/workspace/deep_cv/appconfig/tracking/agv_id.ini")
+AGV_ID = config.getint("conf", "agv_id")
 
 
 def generate_launch_description():
@@ -39,7 +44,10 @@ def generate_launch_description():
         ament_index_python.packages.get_package_share_directory('joy'),
         'config')
     params = os.path.join(config_directory, 'joy-params.yaml')
-    joy_node = launch_ros.actions.Node(package='joy',
+    joy_node = launch_ros.actions.Node(
+                                       name='joy',
+                                       namespace='agv'+ str(AGV_ID),
+                                       package='joy',
                                        node_executable='joy_node',
                                        output='both',
                                        parameters=[params])
